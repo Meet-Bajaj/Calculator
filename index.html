@@ -20,7 +20,7 @@
             justify-content: center;
             align-items: center;
             height: 100dvh;
-            background-color: rgb(49, 49, 49);
+            background-color: rgb(163, 163, 163);
         }
 
         h1 {
@@ -35,6 +35,7 @@
         .operator:hover {
             background-color: rgb(255, 172, 18);
         }
+
         .operator:active {
             background-color: rgb(255, 185, 55);
         }
@@ -45,12 +46,14 @@
             max-width: 500px;
             overflow: hidden;
             box-shadow: 0px 0px 90px rgb(102, 102, 102);
+            padding: 10px;
         }
 
         #display {
-            width: 100%;
+            width: 98%;
             height: 100px;
-            padding: 10px;
+            padding: 5px;
+            font-size: xx-large;
             background-color: gray;
         }
 
@@ -61,17 +64,17 @@
             padding: 20px;
         }
 
-        #zero .zero {
+        #row .row {
             height: 100px;
             width: 210px;
             margin-right: 10px;
         }
 
-        #zero {
+        #row {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            padding: 0px 20px 15px 20px;
+            padding: 10px 20px 5px 20px;
         }
 
         button {
@@ -84,43 +87,66 @@
         button:hover {
             background-color: rgb(156, 156, 156);
         }
+
         button:active {
             background-color: rgb(182, 182, 182);
         }
-    </style>
+        </style>
 </head>
 
 <body>
     <div id="box">
         <h1>Calculator</h1>
         <input readonly id="display">
-        <div id="button">
-            <button class="operator">C</button>
-            <button class="operator">/</button>
-            <button class="operator">x</button>
-            <button class="operator">-</button>
 
-            <button>7</button>
-            <button>8</button>
-            <button>9</button>
-            <button class="operator">+</button>
-
-            <button>4</button>
-            <button>5</button>
-            <button>6</button>
-            <button class="operator">%</button>
-
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button class="operator">.</button>
+        <div id="row">
+            <button onclick="clearDisplay()" class="operator row">C</button>
+            <button onclick="displayText(`/`)" class="operator">/</button>
+            <button onclick="displayText(`*`)" class="operator">x</button>
         </div>
-        <div id="zero">
-            <button class="zero">0</button>
-            <button>00</button>
-            <button>=</button>
+        <div id="button">
+            
+            <button onclick="displayText(`7`)">7</button>
+            <button onclick="displayText(`8`)">8</button>
+            <button onclick="displayText(`9`)">9</button>
+            <button onclick="displayText(`+`)" class="operator">+</button>
+            
+            <button onclick="displayText(`4`)">4</button>
+            <button onclick="displayText(`5`)">5</button>
+            <button onclick="displayText(`6`)">6</button>
+            <button onclick="displayText(`-`)" class="operator">-</button>
+            <!-- <button onclick="displayText(`%`)" class="operator">%</button> -->
+            
+            <button onclick="displayText(`1`)">1</button>
+            <button onclick="displayText(`2`)">2</button>
+            <button onclick="displayText(`3`)">3</button>
+            <button onclick="displayText(`.`)" class="operator">.</button>
+        </div>
+        <div id="row">
+            <button onclick="displayText(`0`)" class="row">0</button>
+            <button onclick="displayText(`00`)">00</button>
+            <button onclick="calculate()">=</button>
         </div>
     </div>
 </body>
+<script>
+
+    const display = document.getElementById("display");
+
+    function displayText(input) {
+        display.value += input;
+    }
+    function clearDisplay() {
+        display.value = "";
+    }
+    function calculate() {
+        try {
+            display.value = eval(display.value);
+        }
+        catch (error) {
+            display.value = "Error!";
+        }
+    }
+</script>
 
 </html>
